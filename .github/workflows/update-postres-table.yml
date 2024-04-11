@@ -1,0 +1,47 @@
+name: Fetch Postgres Dynamic Secrets and update a postgres DB table
+'on': push
+jobs:
+  fetch_postgres_dynamic_secrets:
+    runs-on: self-hosted
+    name: Fetch Postgres Dynamic Secrets
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Fetch dynamic secrets from Akeyless
+        id: fetch-dynamic-secrets
+        uses: akeyless-community/akeyless-github-action@v1.0.1
+        with:
+          access-id: '${{ secrets.ACCESS_ID }}'
+          dynamic-secrets: |
+            - name: "/jenkins/jenkins-postgres"
+              output-name: "postgres_dynamic_secret"
+          access-type: jwt
+          export-secrets-to-outputs: true
+          export-secrets-to-environment: true
+          api-url: 'https://csm.thalescryptolabs.com/akeyless-api/v2/'
+      - name: Export Secrets to Environment
+        run: >
+          echo '${{ steps.fetch-dynamic-secrets.outputs.postgres_dynamic_secret
+          }}' | jq -r
+          'to_entries|map("POSTGRES_\(.key|ascii_upcase)=\(.value|tostring)")|.[]'
+          >> $GITHUB_ENV
+      - name: Install PostgreSQL Client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+      - name: Update PostgreSQL Table
+        env:
+          DB_NAME: postgres
+          DB_HOST: “<Insert DB Host>”
+          DB_PORT: '5432'
+          DB_USER: '${{ env.POSTGRES_USER }}'
+          DB_PASS: '${{ env.POSTGRES_PASSWORD }}'
+        run: >
+         # The SQL command to update the table
+
+          SQL_COMMAND="INSERT INTO public.people (First_Name, Last_Name) VALUES
+          ('Berry', 'Tzakala');"
+
+          # Use PGPASSWORD to pass the password, then run psql to execute your
+          SQL command
