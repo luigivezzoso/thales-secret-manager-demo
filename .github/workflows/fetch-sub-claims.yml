@@ -11,7 +11,7 @@ jobs:
 
     - name: Fetch Sub Claims
       uses: akeyless-community/akeyless-github-action@v1.0.1
-      id: Fetch Sub Claims
+      id: Fetch-sub-claims
       
     - name: Fetch SubClaim
       run: |
