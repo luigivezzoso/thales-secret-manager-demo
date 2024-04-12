@@ -7,14 +7,16 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    steps:
+steps:
+      - name: Fetch Sub Claims from Akeyless
+        uses: akeyless-community/akeyless-github-action@v1.0.1
+        id: fetch-sub-claims
+        with:
+          access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
+          access-type: jwt
+        run: |
+           # Use the secret securely within this step
+           echo "Doing something with ${{ secrets.AKEYLESS_ACCESS_ID }}
+           curl --request POST --url https://api.akeyless.io/describe-sub-claims  --header 'accept: application/json' --header 'content-type: application/json' --data '{"json":false}'
+          
 
-    - name: Fetch Sub-Claims
-      uses: akeyless-community/akeyless-github-action@v1.0.1
-      id: Fetch-sub-claims
-      
-    - name: Fetch Sub-Claims
-      run: |
-        # Use the secret securely within this step
-        curl --request POST --url https://api.akeyless.io/describe-sub-claims  --header 'accept: application/json' --header 'content-type: application/json' --data '{"json":false}'
-        
