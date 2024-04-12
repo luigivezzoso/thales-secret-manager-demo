@@ -24,9 +24,8 @@ jobs:
             echo "Step Outputs"
             echo "curl --request POST --url https://api.akeyless.io/describe-sub-claims  --header 'accept: application/json' --header 'content-type: application/json' --data '
               {
-                "json": false,
-                "token": "string",
-                "uid-token": "string"
+                \"json\": false,
+                \"token\": ${{ secrets.ACCESS_ID }},
               }'
 
      
