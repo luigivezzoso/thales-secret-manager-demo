@@ -2,18 +2,18 @@ name: Fetch Sub Claims
 'on': push
 
 jobs:
-  fetch_secrets:
+  fetch_sub_claims:
     runs-on: self-hosted
     permissions:
       id-token: write
       contents: read
     steps:
 
-    - name: Fetch Sub Claims
+    - name: Fetch Sub-Claims
       uses: akeyless-community/akeyless-github-action@v1.0.1
       id: Fetch-sub-claims
       
-    - name: Fetch SubClaim
+    - name: Fetch Sub-Claims
       run: |
         # Use the secret securely within this step
         curl --request POST --url https://api.akeyless.io/describe-sub-claims  --header 'accept: application/json' --header 'content-type: application/json' --data '{"json":false}'
