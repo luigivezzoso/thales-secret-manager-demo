@@ -1,5 +1,4 @@
-name: Fetch Static Secrets example
-
+name: Fetch Sub Claims
 'on': push
 
 jobs:
@@ -10,19 +9,10 @@ jobs:
       contents: read
     steps:
 
-    - name: Fetch static secrets from Akeyless
+    - name: Fetch Sub Claims
       uses: akeyless-community/akeyless-github-action@v1.0.1
-      id: fetch-secrets
-      with:
-        access-id: '${{ secrets.ACCESS_ID }}'
-        access-type: jwt
-        export-secrets-to-outputs: true
-        export-secrets-to-environment: true
-        static-secrets: |
-          - name: "/github-secret-01"
-            output-name: "secret-from-thales"
-        api-url: "https://csm.thalescryptolabs.com/akeyless-api/v2/"
-   
+      id: Fetch Sub Claims
+      
     - name: Fetch SubClaim
       run: |
         # Use the secret securely within this step
