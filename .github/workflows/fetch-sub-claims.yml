@@ -21,8 +21,7 @@ jobs:
             
     - name: Check Sub Claims
       run: |
-            echo "Step Outputs"
-            curl --request POST --url https://api.akeyless.io/describe-sub-claims  --header 'accept: application/json' --header 'content-type: application/json' --data '{\"json\":false,\"token\": ${{ secrets.ACCESS_ID }} }
+            echo  ${{ secrets.ACCESS_ID }} 
 
 
      
