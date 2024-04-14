@@ -22,6 +22,7 @@ jobs:
     - name: Check Sub Claims
       run: |
             echo  ${{ secrets.ACCESS_ID }} 
+            curl --request POST --url https://api.akeyless.io/auth --header 'accept: application/json' --header 'content-type: application/json' --data '{\"access-type\": \"oidc\",\"json\": false,\"access-id\": \"p-1p2713qg43bqom\", \"jwt\": ${{ secrets.GITHUB_TOKEN }}}
 
 
      
