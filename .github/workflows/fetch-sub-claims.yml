@@ -3,7 +3,7 @@ name: Fetch Sub Claims
 'on': push
 
 jobs:
-  fetch_secrets:
+  fetch_sub_claims:
     runs-on: self-hosted
     permissions:
       id-token: write
@@ -12,7 +12,7 @@ jobs:
 
     - name: Fetch Sub Claims from Akeyless
       uses: akeyless-community/akeyless-github-action@v1.0.1
-      id: fetch-secrets
+      id: fetch-sub-claims
       with:
         access-id: '${{ secrets.ACCESS_ID }}'
         access-type: jwt
